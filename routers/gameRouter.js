@@ -3,6 +3,6 @@ import gameController from "../controllers/game.js";
 
 const router = Router();
 
-router.get("/:picture", gameController.picture);
+router.post("/:picture", gameController.picture);
 
 export default router;
