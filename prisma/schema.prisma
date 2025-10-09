@@ -13,3 +13,32 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model GameSession {
+  id             String    @id @unique @default(uuid())
+  createAt       DateTime  @default(now())
+  finishAt       DateTime?
+  guessedObj     Int[]
+  guessedObjTime Int[]
+  completed      Boolean   @default(false)
+}
+
+model HighScore {
+  id         String   @id @unique @default(uuid())
+  map_ID     String
+  session_ID String
+  username   String
+  total_time Int
+  createAt   DateTime @default(now())
+}
+
+model Maps {
+  id    String @id @unique
+  name  String
+  obj1x Int
+  obj1y Int
+  obj2x Int
+  obj2y Int
+  obj3x Int
+  obj3y Int
+}
