@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  // output   = "../generated/prisma"
 }
 
 datasource db {
@@ -33,12 +33,14 @@ model HighScore {
 }
 
 model Maps {
-  id    String @id @unique
-  name  String
-  obj1x Int
-  obj1y Int
-  obj2x Int
-  obj2y Int
-  obj3x Int
-  obj3y Int
+  id        Int    @id @unique @default(autoincrement())
+  name      String
+  obj1x     Int
+  obj1y     Int
+  obj2x     Int
+  obj2y     Int
+  obj3x     Int
+  obj3y     Int
+  originalx Int
+  originaly Int
 }

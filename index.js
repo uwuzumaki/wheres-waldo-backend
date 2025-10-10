@@ -8,6 +8,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/map", router.map);
 app.use("/picture", router.game);
 
 const PORT = process.env.port || 3000;
