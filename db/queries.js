@@ -29,6 +29,16 @@ const createMap = async (
   return map;
 };
 
+const getMap = async () => {
+  const map = await prisma.maps.findUnique({
+    where: {
+      id: 1,
+    },
+  });
+  return map;
+};
+
 export default {
   createMap,
+  getMap,
 };
