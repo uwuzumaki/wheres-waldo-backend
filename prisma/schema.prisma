@@ -16,9 +16,10 @@ datasource db {
 
 model GameSession {
   id             String    @id @unique @default(uuid())
+  mapID          String?
   createAt       DateTime  @default(now())
   finishAt       DateTime?
-  guessedObj     Int[]
+  guessedObj     String[]
   guessedObjTime Int[]
   completed      Boolean   @default(false)
 }
