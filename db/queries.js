@@ -29,16 +29,52 @@ const createMap = async (
   return map;
 };
 
-const getMap = async () => {
-  const map = await prisma.maps.findUnique({
+const getMap = async (pick) => {
+  const map = await prisma.maps.findMany({
     where: {
-      id: 1,
+      name: pick,
     },
   });
   return map;
 };
 
+const createPlayer = async () => {
+  const player = await prisma.gameSession.create({
+    data: {
+      guessedObj: [],
+      guessedObjTime: [],
+    },
+  });
+  return player;
+};
+
+const gameSession = async (id) => {
+  const session = await prisma.gameSession.findUnique({
+    where: {
+      id,
+    },
+  });
+  return session;
+};
+
+const addPick = async (id, obj) => {
+  const session = await prisma.gameSession.update({
+    where: {
+      id,
+    },
+    data: {
+      guessedObj: {
+        push: obj,
+      },
+    },
+  });
+  return session;
+};
+
 export default {
   createMap,
   getMap,
+  createPlayer,
+  gameSession,
+  addPick,
 };
