@@ -15,22 +15,21 @@ datasource db {
 }
 
 model GameSession {
-  id             String    @id @unique @default(uuid())
-  mapID          String?
-  createAt       DateTime  @default(now())
-  finishAt       DateTime?
-  guessedObj     String[]
-  guessedObjTime Int[]
-  completed      Boolean   @default(false)
+  id         String    @id @unique @default(uuid())
+  mapID      Int?
+  createAt   DateTime  @default(now())
+  finishAt   DateTime?
+  totalTime  DateTime?
+  guessedObj String[]
+  completed  Boolean   @default(false)
 }
 
 model HighScore {
-  id         String   @id @unique @default(uuid())
-  map_ID     String
+  id         String @id @unique @default(uuid())
+  map_ID     Int
   session_ID String
   username   String
-  total_time Int
-  createAt   DateTime @default(now())
+  time       Int
 }
 
 model Maps {
