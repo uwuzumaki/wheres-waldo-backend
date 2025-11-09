@@ -38,11 +38,11 @@ const getMap = async (pick) => {
   return map;
 };
 
-const createPlayer = async () => {
+const createPlayer = async (mapID) => {
   const player = await prisma.gameSession.create({
     data: {
       guessedObj: [],
-      guessedObjTime: [],
+      mapID,
     },
   });
   return player;
@@ -71,10 +71,39 @@ const addPick = async (id, obj) => {
   return session;
 };
 
+const finish = async (id, finishAt, totalTime) => {
+  const session = await prisma.gameSession.update({
+    where: {
+      id,
+    },
+    data: {
+      finishAt,
+      totalTime,
+    },
+  });
+};
+
+const getHighScore = async (map_ID) => {
+  const topTen = await prisma.highScore.findMany({
+    take: 10,
+    where: {
+      map_ID,
+    },
+    orderBy: {
+      time: "asc",
+    },
+  });
+  return topTen;
+};
+
+const createHighScore = async (map_ID, session_ID, username, time) => {};
+
 export default {
   createMap,
   getMap,
   createPlayer,
   gameSession,
   addPick,
+  finish,
+  getHighScore,
 };
