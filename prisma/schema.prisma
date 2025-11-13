@@ -19,7 +19,7 @@ model GameSession {
   mapID      Int?
   createAt   DateTime  @default(now())
   finishAt   DateTime?
-  totalTime  DateTime?
+  totalTime  Int?
   guessedObj String[]
   completed  Boolean   @default(false)
 }
@@ -28,7 +28,7 @@ model HighScore {
   id         String @id @unique @default(uuid())
   map_ID     Int
   session_ID String
-  username   String
+  username   String @default("Anonymous")
   time       Int
 }
 
