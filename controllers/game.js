@@ -34,13 +34,27 @@ const createPlayer = async (req, res) => {
   res.json({ id: player.id, createAt: player.createAt });
 };
 
-const gameOver = async (req, res) => {
-  const gameSession = await db.gameSession(req.body.id);
-  const map = gameSession.mapID;
-  const topTen = await db.getHighScore(map);
-  console.log("123");
-  console.log(topTen);
-  res.json(gameSession);
+const currentPlayer = async (req, res) => {
+  const player = await db.gameSession(req.body.id);
+  return res.json(player);
 };
 
-export default { picture, createPlayer, gameOver };
+//Check highscore function
+const gameOver = async (req, res) => {
+  const gameOver = await db.getAndCreateHighscore(req.body.id);
+  console.log(gameOver);
+  // const gameSession = await db.gameSession(req.body.id);
+  // const map = gameSession.mapID;
+  // const topTen = await db.getHighScore(map);
+  // const highScore = gameSession.totalTime <= topTen[9].time ? true : false;
+  // await db.createHighScore(
+  //   gameSession.mapID,
+  //   gameSession.id,
+  //   gameSession.totalTime
+  // );
+  // console.log(highScore);
+  // console.log(topTen);
+  res.json(gameOver);
+};
+
+export default { picture, createPlayer, currentPlayer, gameOver };
