@@ -42,18 +42,6 @@ const currentPlayer = async (req, res) => {
 //Check highscore function
 const gameOver = async (req, res) => {
   const gameOver = await db.getAndCreateHighscore(req.body.id);
-  console.log(gameOver);
-  // const gameSession = await db.gameSession(req.body.id);
-  // const map = gameSession.mapID;
-  // const topTen = await db.getHighScore(map);
-  // const highScore = gameSession.totalTime <= topTen[9].time ? true : false;
-  // await db.createHighScore(
-  //   gameSession.mapID,
-  //   gameSession.id,
-  //   gameSession.totalTime
-  // );
-  // console.log(highScore);
-  // console.log(topTen);
   res.json(gameOver);
 };
 
