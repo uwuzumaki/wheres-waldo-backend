@@ -79,8 +79,66 @@ const finish = async (id, finishAt, totalTime) => {
     data: {
       finishAt,
       totalTime,
+      completed: true,
     },
   });
+};
+
+const getAndCreateHighscore = async (player) => {
+  const result = await prisma.$transaction(async (tx) => {
+    const session = await tx.gameSession.findUnique({
+      where: {
+        id: player,
+      },
+    });
+
+    const topTen = await tx.highScore.findMany({
+      take: 10,
+      where: {
+        map_ID: session.mapID,
+      },
+      orderBy: {
+        time: "asc",
+      },
+    });
+
+    const highestTime = topTen[9]?.time ?? Infinity;
+    const newHighscore =
+      topTen.length < 10 || session.totalTime < highestTime ? true : false;
+
+    if (newHighscore) {
+      await tx.highScore.create({
+        data: {
+          map_ID: session.mapID,
+          session_ID: session.id,
+          time: session.totalTime,
+        },
+      });
+
+      const updatedScores = await tx.highScore.findMany({
+        where: {
+          map_ID: session.mapID,
+        },
+        orderBy: {
+          time: "asc",
+        },
+      });
+
+      const notTopTen = updatedScores.slice(10);
+      if (notTopTen.length > 0) {
+        await tx.highScore.deleteMany({
+          where: {
+            map_ID: session.mapID,
+            id: {
+              in: notTopTen.map((not) => not.id),
+            },
+          },
+        });
+      }
+    }
+    return { session, newHighscore };
+  });
+  return result;
 };
 
 const getHighScore = async (map_ID) => {
@@ -96,8 +154,6 @@ const getHighScore = async (map_ID) => {
   return topTen;
 };
 
-const createHighScore = async (map_ID, session_ID, username, time) => {};
-
 export default {
   createMap,
   getMap,
@@ -106,4 +162,5 @@ export default {
   addPick,
   finish,
   getHighScore,
+  getAndCreateHighscore,
 };
