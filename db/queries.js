@@ -155,9 +155,9 @@ const getHighScore = async (map_ID) => {
 };
 
 const updateHighScore = async (session_ID, username) => {
-  const highScore = await prisma.update.highScore({
+  const highScore = await prisma.highScore.update({
     where: {
-      session_ID,
+      session_ID: session_ID,
     },
     data: {
       username,

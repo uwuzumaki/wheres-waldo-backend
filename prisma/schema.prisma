@@ -11,6 +11,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  //just don't upgrdate to prisma 7 lmao
   url      = env("DATABASE_URL")
 }
 
@@ -27,7 +28,7 @@ model GameSession {
 model HighScore {
   id         String @id @unique @default(uuid())
   map_ID     Int
-  session_ID String
+  session_ID String @unique
   username   String @default("Anonymous")
   time       Int
 }
