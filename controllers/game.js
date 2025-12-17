@@ -45,4 +45,17 @@ const gameOver = async (req, res) => {
   res.json(gameOver);
 };
 
-export default { picture, createPlayer, currentPlayer, gameOver };
+const updateHighScore = async (req, res) => {
+  const session = req.body.session;
+  const name = req.body.name;
+  const highscore = await db.updateHighScore(session, name);
+  return res.json(highscore);
+};
+
+export default {
+  picture,
+  createPlayer,
+  currentPlayer,
+  gameOver,
+  updateHighScore,
+};

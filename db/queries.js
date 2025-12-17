@@ -154,6 +154,18 @@ const getHighScore = async (map_ID) => {
   return topTen;
 };
 
+const updateHighScore = async (session_ID, username) => {
+  const highScore = await prisma.update.highScore({
+    where: {
+      session_ID,
+    },
+    data: {
+      username,
+    },
+  });
+  return highScore;
+};
+
 export default {
   createMap,
   getMap,
@@ -163,4 +175,5 @@ export default {
   finish,
   getHighScore,
   getAndCreateHighscore,
+  updateHighScore,
 };
