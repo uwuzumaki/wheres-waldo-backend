@@ -15,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/map", router.map);
 app.use("/picture", router.game);
+app.use("/highscores", router.highscore);
 
 const PORT = process.env.port || 3000;
 app.listen(PORT, () => {
