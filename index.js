@@ -17,15 +17,15 @@ app.use("/map", router.map);
 app.use("/picture", router.game);
 app.use("/highscores", router.highscore);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Listening on ${PORT}`);
-});
-
 app.use((err, req, res, next) => {
-  console.error("🔥 ERROR:", err);
+  console.error(" ERROR:", err);
   res.status(500).json({
     message: "Internal Server Error",
     error: process.env.NODE_ENV === "production" ? undefined : err.message,
   });
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Listening on ${PORT}`);
 });
