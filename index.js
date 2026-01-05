@@ -4,6 +4,11 @@ import cors from "cors";
 
 const app = express();
 
+app.use((req, res, next) => {
+  console.log("HIT:", req.method, req.originalUrl);
+  next();
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -12,12 +17,6 @@ app.use(
     credentials: true,
   })
 );
-app.use((req, res, next) => {
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(204);
-  }
-  next();
-});
 
 app.use("/map", router.map);
 app.use("/picture", router.game);
