@@ -4,14 +4,14 @@ const createMap = async (req, res) => {
   const body = req.body;
   const map = await db.createMap(
     "kanagawa",
-    parseInt(body.x1),
-    parseInt(body.y1),
-    parseInt(body.x2),
-    parseInt(body.y2),
-    parseInt(body.x3),
-    parseInt(body.y3),
-    parseInt(body.originalx),
-    parseInt(body.originaly)
+    parseInt(74),
+    parseInt(89),
+    parseInt(64),
+    parseInt(65),
+    parseInt(17),
+    parseInt(67),
+    parseInt(3859),
+    parseInt(2594)
   );
   console.log(map);
 };
