@@ -22,7 +22,7 @@ app.use("/map", router.map);
 app.use("/picture", router.game);
 app.use("/highscores", router.highscore);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
-  console.log(`Listening on ${PORT}`);
+  console.log(`PROCESS ENV ${process.env.PORT}`);
 });
