@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://wheres-waldo2.netlify.app"],
+    origin: "*",
     credentials: true,
   })
 );
