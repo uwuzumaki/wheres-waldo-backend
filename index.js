@@ -4,11 +4,6 @@ import cors from "cors";
 
 const app = express();
 
-app.use((req, res, next) => {
-  console.log("HIT:", req.method, req.originalUrl);
-  next();
-});
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -22,6 +17,7 @@ app.use("/map", router.map);
 app.use("/picture", router.game);
 app.use("/highscores", router.highscore);
 
-app.listen(process.env.PORT, "0.0.0.0", () => {
-  console.log(`Listening on ${process.env.PORT}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Listening on ${PORT}`);
 });
