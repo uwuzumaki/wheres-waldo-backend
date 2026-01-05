@@ -8,10 +8,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "*",
+    origin: ["http://localhost:5173", "https://wheres-waldo2.netlify.app"],
     credentials: true,
   })
 );
+app.use((req, res, next) => {
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
+  next();
+});
 
 app.use("/map", router.map);
 app.use("/picture", router.game);
