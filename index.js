@@ -4,7 +4,6 @@ import cors from "cors";
 
 const app = express();
 
-app.options("*", cors());
 app.use(
   cors({
     origin: ["http://localhost:5173", "https://wheres-waldo2.netlify.app"],
